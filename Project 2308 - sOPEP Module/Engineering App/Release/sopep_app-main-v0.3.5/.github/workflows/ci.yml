@@ -1,0 +1,131 @@
+name: CI - Build Flutter (Release) and App Distribute
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+#  build_ios:
+#    name: Build Flutter iOS (Release)
+#    runs-on: macOS-latest
+#    steps:
+#    - uses: actions/checkout@v2
+#    - uses: actions/setup-java@v1
+#      with:
+#        java-version: '12.x'
+#    - uses: subosito/flutter-action@v2
+#      with:
+#          channel: 'stable'
+#    - run: flutter pub get
+#    - run: flutter clean
+#    - run: flutter build ipa --release --no-tree-shake-icons --export-options-plist ios/export_adhoc.plist
+#    - name: Upload IPA
+#      uses: actions/upload-artifact@master
+#      with:
+#        name: ios-build
+#        path: build/ios/iphoneos
+  build_apk:
+    name: Build Flutter Android (Release)
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '12.x'
+    - uses: subosito/flutter-action@v2
+      with:
+          channel: 'stable'
+    - run: flutter pub get
+#     - run: flutter build appbundle --target-platform android-arm,android-arm64
+    - run: flutter build apk --release --no-tree-shake-icons
+    - name: Upload APK
+      uses: actions/upload-artifact@master
+      with:
+        name: apk-build
+        path: build/app/outputs/apk/release
+#   deploy_ios:
+#     name: Deploy iOS Beta
+#     needs: [build_ios]
+#     runs-on: macOS-latest
+#     steps:
+#       - uses: actions/checkout@v1
+#       - uses: subosito/flutter-action@v1
+#         with:
+#           channel: 'dev'
+#       - run:  mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+#       - uses: webfactory/ssh-agent@v0.1.1
+#         with:
+#           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+#       - uses: maierj/fastlane-action@v0.9.5
+#         with:
+#           lane: 'beta'
+#           subdirectory: 'ios'
+#         env:
+#           GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+#   deploy_apk:
+#     name: Deploy Android Beta
+#     needs: [build_apk]
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v1
+#       - uses: actions/setup-java@v1
+#         with:
+#           java-version: '12.x'
+#       - uses: subosito/flutter-action@v1
+#         with:
+#           channel: 'dev'
+#       - uses: maierj/fastlane-action@v0.9.5
+#         with:
+#           lane: 'beta'
+#           subdirectory: 'android'
+#         env:
+#           GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#  beta_ios:
+#    name: Upload iOS Beta to Firebase App Distribution
+#    needs: [build_ios]
+#    runs-on: ubuntu-latest
+#    steps:
+#    - uses: actions/checkout@v2
+#    - name: set up JDK 1.8
+#      uses: actions/setup-java@v1
+#      with:
+#        java-version: 1.8
+#    - name: Download Artifact
+#      uses: actions/download-artifact@master
+#      with:
+#        name: ios-build
+#    - name: Setup node.js
+#      uses: actions/setup-node@v3
+#      with:
+#        node-version: '>=18.0.0'
+#    - name: Upload IPA
+#      uses: wzieba/Firebase-Distribution-Github-Action@v1.5.1
+#      with:
+#        appId: ${{secrets.SOPEP_FIREBASE_IOS_APPID}}
+#        serviceCredentialsFileContent: ${{ secrets.SOPEP_CREDENTIAL_FILE_CONTENT }}
+#        group: testers
+#        file: Runner.ipa
+#  beta_apk:
+#    name: Upload Android Beta to Firebase App Distribution
+#    needs: [build_apk]
+#    runs-on: ubuntu-latest
+#    steps:
+#    - uses: actions/checkout@v2
+#    - name: set up JDK 1.8
+#      uses: actions/setup-java@v1
+#      with:
+#        java-version: 1.8
+#    - name: Download Artifact
+#      uses: actions/download-artifact@master
+#      with:
+#        name: apk-build
+#    - name: Upload APK
+#      uses: wzieba/Firebase-Distribution-Github-Action@v1.5.1
+#      with:
+#        appId: ${{secrets.SOPEP_FIREBASE_ANDROID_APPID}}
+#        serviceCredentialsFileContent: ${{ secrets.SOPEP_CREDENTIAL_FILE_CONTENT }}
+#        group: testers
+#        file: app-release.apk

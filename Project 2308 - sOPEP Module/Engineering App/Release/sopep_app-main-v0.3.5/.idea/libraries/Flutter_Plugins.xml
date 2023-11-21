@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Flutter Plugins" type="FlutterPluginsLibraryType">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_reactive_ble-5.1.1" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/reactive_ble_mobile-5.1.1" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
