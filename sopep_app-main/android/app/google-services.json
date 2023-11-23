@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "513799978995",
+    "project_id": "sopep-6b4ad",
+    "storage_bucket": "sopep-6b4ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:513799978995:android:dced384febaa04114b5c86",
+        "android_client_info": {
+          "package_name": "com.staric.sopep.flutterapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "513799978995-cd9i7bfous0pa1h47stneuo85n0susjt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZgURFFFycwY_sTTsG7WTJlxyEQZOciEg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "513799978995-cd9i7bfous0pa1h47stneuo85n0susjt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
